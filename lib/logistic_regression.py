@@ -72,4 +72,3 @@ class LogisticRegression():
         probabilities = self.sigmoid(z)
 
         return probabilities
-
