@@ -12,7 +12,6 @@ class LogisticRegression():
         :param learning_rate: the rate at which the weights should be adjusted during gradient descent
         :param iterations: the number of iterations of the gradient descent algorithm
         """
-
         self.learning_rate = learning_rate
         self.iterations = iterations
         self.weights = None
@@ -48,7 +47,6 @@ class LogisticRegression():
         :param features: the feature matrix to train from
         :param targets: the labels to compare against during training
         """
-
         rows = features.shape[0]
         self.weights = np.random.rand(rows, 1)
         self.cost_history = []
@@ -72,7 +70,6 @@ class LogisticRegression():
         :param features: the new set of features to predict a label for
         :return: the predicted labels
         """
-
         z = np.dot(features, self.weights)
         probabilities = self.sigmoid(z)
 
@@ -85,7 +82,6 @@ class LogisticRegression():
         :param features: the new set of features to predict a probability for
         :return: the predicted probabilities
         """
-
         z = np.dot(features, self.weights)
         probabilities = self.sigmoid(z)
 
