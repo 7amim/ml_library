@@ -16,6 +16,7 @@ class LogisticRegression():
         self.learning_rate = learning_rate
         self.iterations = iterations
         self.weights = None
+        self.cost_history = []
 
     @staticmethod
     def sigmoid(z):
@@ -27,6 +28,19 @@ class LogisticRegression():
         """
         return 1 / (1 + np.exp(-z))
 
+    @staticmethod
+    def get_cost(probabilities: np.array,
+                 targets: np.array):
+        """
+        Computes the log-liklihood loss
+
+        :param probabilities: the probability vector
+        :param targets: the target labels
+        :return: the computed cost
+        """
+        return -np.sum(targets * np.log(probabilities) + (1 - targets) * np.log(1 - probabilities)) / len(targets)
+
+
     def fit(self, features, targets):
         """
         Trains the model using gradient descent.
@@ -37,6 +51,7 @@ class LogisticRegression():
 
         rows = features.shape[0]
         self.weights = np.random.rand(rows, 1)
+        self.cost_history = []
 
         for i in range(self.iterations):
 
@@ -44,6 +59,9 @@ class LogisticRegression():
             probabilities = LogisticRegression.sigmoid(z)
 
             gradient = np.dot(features.T, (targets - probabilities)) / len(targets)
+
+            cost = LogisticRegression.get_cost(probabilities, targets)
+            self.cost_history.append(cost)
 
             self.weights -= self.learning_rate * gradient
 
