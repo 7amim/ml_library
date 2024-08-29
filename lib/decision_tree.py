@@ -43,7 +43,7 @@ A decision tree that can be used for classification or regression tasks, dependi
 
 import numpy as np
 
-class Node():
+class Node:
 
     def __init__(self,
                  feature,

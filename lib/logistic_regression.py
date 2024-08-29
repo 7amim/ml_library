@@ -1,7 +1,7 @@
 
 import numpy as np
 
-class LogisticRegression():
+class LogisticRegression:
 
     def __init__(self,
                  learning_rate: int = 0.001,
