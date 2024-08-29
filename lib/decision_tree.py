@@ -63,7 +63,7 @@ class Node():
     def gini_impurity(num_yes: int, num_no: int) -> float:
         return 1 - num_yes / (num_yes + num_no) - num_no / (num_yes + num_no)
 
-    def count_votes(self):
+    def weighted_impurity(self):
 
         impurities: dict[int] = {}
         proportions: dict[int] = {}
@@ -83,10 +83,10 @@ class Node():
 
             num_c = np.sum((self.feature == c))
 
-            # calculate the impurity associated with each category
+            # calculate the impurity associated with each category and weight it by its proportion in the feature
             weighted_impurity += (num_c / len(self.feature)) * Node.gini_impurity(num_yes, num_no)
 
-
+        self.impurity = weighted_impurity
 
 
 
