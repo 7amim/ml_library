@@ -40,3 +40,57 @@ Steps:
 Returns:
 A decision tree that can be used for classification or regression tasks, depending on the target variable type.
 """
+
+import numpy as np
+
+class Node():
+
+    def __init__(self,
+                 feature,
+                 target,
+                 label):
+
+        self.feature: np.array = feature
+        self.target: np.array = target
+        self.label = label
+
+        self.impurity = None
+
+        self.left: Node = None
+        self.right: Node = None
+
+    @staticmethod
+    def gini_impurity(num_yes: int, num_no: int) -> float:
+        return 1 - num_yes / (num_yes + num_no) - num_no / (num_yes + num_no)
+
+    def count_votes(self):
+
+        impurities: dict[int] = {}
+        proportions: dict[int] = {}
+
+        categories = np.unique(self.feature)
+
+        weighted_impurity = 0
+
+        for c in categories:
+            # determine the number of yes and no votes for each category
+            num_yes = np.sum((self.feature == c) & (self.target == self.label))
+
+            num_no = np.sum((self.feature == c) & (self.target != self.label))
+
+            if num_yes + num_no == 0:
+                continue
+
+            num_c = np.sum((self.feature == c))
+
+            # calculate the impurity associated with each category
+            weighted_impurity += (num_c / len(self.feature)) * Node.gini_impurity(num_yes, num_no)
+
+
+
+
+
+# class decision_tree:
+#
+#     def __init__(self):
+#
