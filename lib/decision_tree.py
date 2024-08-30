@@ -1,9 +1,5 @@
 """
-Builds a decision tree from a dataset by recursively splitting the data to minimize impurity.
 
-Decision trees are constructed to predict a target label by recursively partitioning the data based
-on features that best separate the target labels. The goal is to create a tree where each leaf node
-represents a pure subset of the data (i.e., all instances in a leaf have the same target label).
 
 Steps:
 
@@ -113,8 +109,21 @@ class Node:
 
 
 class DecisionTree:
+    def __init__(self, features, target, label, feature_names=None, max_depth: int = 100):
+        """
+        Builds a decision tree from a dataset by recursively splitting the data to minimize impurity.
 
-    def __init__(self, features, target, label, feature_names=None, max_depth: int = 5):
+        Decision trees are constructed to predict a target label by recursively partitioning the data based
+        on features that best separate the target labels. The goal is to create a tree where each leaf node
+        represents a pure subset of the data (i.e., all instances in a leaf have the same target label), or to
+        minimize the impurity of each leaf node (i.e., the amount of mixture of target labels.)
+
+        :param features: the feature matrix to be fit to the tree
+        :param target: the training labels used to fit the tree
+        :param label: the target label to be considered the positive class
+        :param feature_names: the names of the features in the feature column
+        :param max_depth: the maximum depth of the tree before ending algorithm
+        """
         self.root = None
 
         self.features = features
@@ -128,6 +137,12 @@ class DecisionTree:
         self.max_depth = max_depth
 
     def determine_root(self):
+        """
+        Given the features, determines which feature should be used for the root node based on identifying
+        which feature results in the minimum impurity.
+
+        :return: the root node of the tree
+        """
         # Find the root node by identifying the node with the minimum impurity
         min_impurity = 1
         root = None
@@ -144,10 +159,28 @@ class DecisionTree:
         return root
 
     def fit(self):
+        """
+        Determines the root node, and then builds the decision tree by identifying which feature
+        splits are necessary.
+        """
         self.root = self.determine_root()
         self.split_node(self.root)
 
     def split_node(self, node):
+        """
+        Splits a given node into child nodes based on the feature with the lowest impurity.
+
+        For a given node:
+        - Identifies the categories within the node's feature set.
+        - Finds the subset of data corresponding to each category for the current feature.
+        - Evaluates the remaining features to find the feature with the lowest impurity
+          for the current subset of data.
+        - Creates a child node for each category using the feature with the minimum impurity.
+        - Recursively applies the same splitting logic to each child node until a stopping
+          criterion is met (e.g., maximum depth, minimum impurity decrease).
+
+        :param node: Node object representing the current node to be split.
+        """
         if node.depth >= self.max_depth:
             return
 
