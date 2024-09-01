@@ -213,12 +213,27 @@ class DecisionTree:
                     self.split_node(best_child_node)
 
     def predict(self, samples):
+        """
+        Given a set of samples, traverses the decision tree to classify the sample.
+
+        :param samples: Can either be a list of features or a single set of features to predict
+        :return: the class prediction
+        """
         if len(samples.shape) == 1:
             return self.traverse_tree(samples, self.root)
         else:  # More than one sample
             return [self.traverse_tree(s, self.root) for s in samples]
 
     def traverse_tree(self, sample, node):
+        """
+        Given a set of features, and the current node, recursively traverses the tree until it reaches a
+        leaf node. Once a leaf node is found, makes a prediction based on the majority class
+        that corresponds to the node.
+
+        :param sample: the set of features to make a prediction for
+        :param node: the current node to be traversed
+        :return: returns the predicted class of the sample
+        """
         if not node.branches:  # Arrived at a leaf node
             return node.get_majority_class()
 
