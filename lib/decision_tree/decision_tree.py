@@ -8,6 +8,22 @@ class Node:
                  label: int,
                  feature_idx: int):
 
+        """
+        Initializes a Node object for use in a decision tree.
+
+        This constructor sets up the node with a given feature, target array,
+        and label. It identifies the unique categories in the feature, calculates
+        the total number of samples, and initializes various properties for impurity,
+        depth, and child branches.
+
+        :param feature: The feature data (list or numpy array) for the node, representing
+                        the values of the feature used to split the data at this node.
+        :param target: The target labels (list or numpy array) corresponding to the samples
+                       in the feature data.
+        :param label: The label to be predicted (typically the class for classification tasks).
+        :param feature_idx: The index of the feature within the dataset that this node represents.
+        """
+
         self.feature: np.array = feature
         self.categories: set = set(self.feature)
         self.target: np.array = target
