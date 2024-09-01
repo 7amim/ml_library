@@ -3,9 +3,9 @@ import numpy as np
 class Node:
 
     def __init__(self,
-                 feature: list | np.array,
-                 target: list | np.array,
-                 label: int,
+                 feature,
+                 target,
+                 label,
                  feature_idx: int):
 
         """
@@ -28,6 +28,7 @@ class Node:
         self.categories: set = set(self.feature)
         self.target: np.array = target
         self.label = label
+        self.feature_idx: int = feature_idx
 
         self.total_samples = len(self.feature[~np.isnan(self.feature)])
 
