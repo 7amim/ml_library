@@ -47,13 +47,16 @@ class LogisticRegression:
         :param features: the feature matrix to train from
         :param targets: the labels to compare against during training
         """
-        rows = features.shape[0]
-        self.weights = np.random.rand(rows, 1)
+
+        targets = targets.reshape(-1, 1)
+
+        cols = features.shape[1]
+        self.weights = np.random.rand(cols, 1)
         self.cost_history = []
 
         for i in range(self.iterations):
 
-            z = np.dot(features.T, self.weights)
+            z = np.dot(features, self.weights)
             probabilities = LogisticRegression.sigmoid(z)
 
             gradient = np.dot(features.T, (targets - probabilities)) / len(targets)
