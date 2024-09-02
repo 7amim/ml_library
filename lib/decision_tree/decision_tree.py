@@ -7,7 +7,6 @@ class Node:
                  target,
                  label,
                  feature_idx: int):
-
         """
         Initializes a Node object for use in a decision tree.
 
