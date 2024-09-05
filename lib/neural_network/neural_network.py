@@ -1,8 +1,3 @@
-import copy
-
-import torch
-import tqdm
-
 from torch import nn
 
 class NeuralNetwork(nn.Module):
