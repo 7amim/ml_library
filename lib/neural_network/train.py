@@ -8,10 +8,13 @@ from sklearn.model_selection import train_test_split
 import copy
 import tqdm
 
+BATCH_SIZE = 32
+EPOCHS = 50
+LEARNING_RATE = 0.001
 
-def train(model, X_train, y_train, X_val, y_val, epochs=50, batch_size=32):
+def train(model, X_train, y_train, X_val, y_val, epochs=EPOCHS, batch_size=BATCH_SIZE):
     loss_function = nn.BCELoss()
-    optimizer = optim.Adam(model.parameters(), lr=0.001)
+    optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
     batch_start = arange(0, len(X_train), batch_size)
 
     best_validation_accuracy = 0
