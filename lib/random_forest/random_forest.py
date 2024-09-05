@@ -4,7 +4,11 @@ from scipy.stats import mode
 import numpy as np
 
 class RandomForest:
-    def __init__(self, n_estimators: int = 100, n_features: int = 2, max_depth: int = 100, min_samples_split: int = 2,
+    def __init__(self,
+                 n_estimators: int = 100,
+                 n_features: int = 2,
+                 max_depth: int = 100,
+                 min_samples_split: int = 2,
                  random_state: int = 42):
         """
         Creates a RandomForest classifier that is based on the DecisionTree class.
@@ -27,7 +31,10 @@ class RandomForest:
 
         self.trees = []
 
-    def fit(self, features, target, label=1):
+    def fit(self,
+            features,
+            target,
+            label=1):
         """
         Given the features and target labels, fits the trees to the data.
 
@@ -43,7 +50,8 @@ class RandomForest:
             self.trees.append(current_decision_tree)
 
     @staticmethod
-    def bootstrap_features (features, target):
+    def bootstrap_features(features,
+                           target):
         """
         Returns the bootstrapped dataset.
 
@@ -56,7 +64,8 @@ class RandomForest:
         return features[bootstrap_index], target[bootstrap_index]
 
     @staticmethod
-    def select_features(features, n_features):
+    def select_features(features,
+                        n_features):
         """
         Selects the number of features to use when generating a given tree.
 
@@ -68,7 +77,8 @@ class RandomForest:
         feature_indices = np.random.choice(cols, n_features, replace=False)  # Randomly select column indices
         return features[:, feature_indices]
 
-    def predict(self, features):
+    def predict(self,
+                features):
         """
         Returns the predictions for a given set of features.
 
